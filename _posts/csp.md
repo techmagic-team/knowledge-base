@@ -5,6 +5,8 @@ categories:
   - security
 description:
 type: Document
+set: Security
+set_order: 1
 ---
 # Content Security Policy (CSP)
 

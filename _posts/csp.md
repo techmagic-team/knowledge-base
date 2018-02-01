@@ -1,5 +1,5 @@
 ---
-date:
+date: 2018-02-01
 title: Content Security Policy (CSP)
 categories:
   - security

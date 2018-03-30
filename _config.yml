@@ -39,7 +39,6 @@ exclude:
 
 collections:
   sets:
-    - security
 
 
 jekyll-archives:

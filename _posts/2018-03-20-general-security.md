@@ -41,3 +41,15 @@ Note: Without reading next articles **don't start working on security** of your 
 * [TLS (HTTP over TLS)](https://developer.mozilla.org/en-US/docs/Web/Security/Transport_Layer_Security)
 * [HTTP headers](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers) - save it as a bookmark so you can read about any http header and whats it all about
 
+## Web API Security Checklist
+
+https://github.com/shieldfy/API-Security-Checklist
+
+## Media content about security
+
+* [Securit13 Podcast](https://www.youtube.com/channel/UCGYHYOm_J3zpyE5jCNzAHJg) - Ukrainian YouTube channel about information security.
+* [Awesome-Hacking-Resources](https://github.com/Rev-lulz/Awesome-Hacking-Resources) - Useful github repo about hacking
+* [awesome-cyber-skills](https://github.com/joe-shenouda/awesome-cyber-skills) - github repo where you can train your security/hacking skills.
+* [Ukrainian Security Conferences](https://github.com/sapran/Ukraine-infosec-conferences)
+* [XSS Cheat Sheet PDF](http://leanpub.com/s/2Z-FUk3sZ4guIFregKiiCg.pdf)
+

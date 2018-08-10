@@ -36,7 +36,7 @@ When his friends use the link, they use his session and credit card.
 
 Here are some useful links to expand your knowledge:
 * Extended info about vulnerability is listed on [OWASP article](https://www.owasp.org/index.php/Session_Management_Cheat_Sheet#Session_ID_Properties);
-* How to test this vulnerability you can find [here](https://www.tutorialspoint.com/security_testing/testing_broken_authentication.htm); 
-* [Another example](https://github.com/wahengchang/nodejs-security-must-know/tree/master/broken_authentication). 
-* Session management [example](https://dzone.com/articles/owasp-broken-authentication).
+* How to test this vulnerability you can find [here](https://www.tutorialspoint.com/security_testing/testing_broken_authentication.htm);
+* [Another example](https://github.com/wahengchang/nodejs-security-must-know/tree/master/broken_authentication);
+* Session management [example](https://dzone.com/articles/owasp-broken-authentication);
 * [Article](https://hdivsecurity.com/owasp-broken-authentication-and-session-management) with provided vulnerability explanation and examples.

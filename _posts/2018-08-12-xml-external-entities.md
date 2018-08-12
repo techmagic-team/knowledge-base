@@ -36,6 +36,8 @@ Example of vulnerable *.xml document that can be used for attack.
 </creds>
 ```
 
+REMEMEBER! It's general example and provided only for educational purpose.
+
 ## What's next?
 
 Here are some useful links to expand your knowledge:

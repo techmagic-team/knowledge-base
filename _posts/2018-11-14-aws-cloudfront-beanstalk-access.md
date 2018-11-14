@@ -18,30 +18,24 @@ With implementation of GDPR this problem became more critical due to big financi
 
 ## How to Automatically Update Your Security Groups for Amazon CloudFront and AWS WAF by Using AWS Lambda
 
-## Setup
+# Setup
 
-### update-security-groups
+### 1. Create a security group
 
-A Lambda function for updating the **cloudfront** EC2 security group ingress rules
-with the CloudFront IP range changes.
+The first thing you need to do is create a security group. This security group will allow only traffic from CloudFront and AWS WAF into your Elastic Load Balancing load balancers or EC2 instances.
 
+Then, add both security groups to your Amazon EC2 instance or Elastic Load Balancing load balancer and configure the AWS Lambda script.
 
-## Security Group
+In the EC2 console:
 
-This Lambda function updates a total possibility of 4 EC2 security groups tagged as the following:
-*  `Name: cloudfront_g` and `AutoUpdate: true` and a `Protocol` tag with value `http` or `https`.
-*  `Name: cloudfront_r` and `AutoUpdate: true` and a `Protocol` tag with value `http` or `https`.
+1. Click Security Groups > Create Security Group.
+2. Give your security group a meaningful name and description.
+3. Next, view the security group you just created, and add three tags that our Lambda function will use to identify security groups it needs to update: set Name to cloudfront_g, AutoUpdate to true, and Protocol to either http or https.
+4. Repeat this process above with the Protocol and AutoUpdate tags with a new name of cloudfront_r.
 
-**Note:** For CloudFront to properly connect to your origin over HTTP or HTTPS only, you will need two security groups with `Name: cloudfront_g` and `Name: cloudfront_r` set for http or https depending on the protocol used. If you require both HTTP and HTTPS protocols to your origin, you will need a total of 4 security groups.
+Note: If you use both http and https to your origin, create new security groups and set the other protocol you did not use in the above steps.
 
-## Event Source
-
-This lambda function is designed to be subscribed to the 
-[AmazonIpSpaceChanged](http://docs.aws.amazon.com/general/latest/gr/aws-ip-ranges.html#subscribe-notifications) 
-SNS topic. In the _Add Event Source_ dialog, select **SNS** in the *Event source type*, and populate *SNS Topic* with `arn:aws:sns:us-east-1:806199016981:AmazonIpSpaceChanged`.
-
-
-## Policy
+### 2. Policy
 
 To be able to make sufficient use of this Lambda function, you will require a role with a number of permissions. An example policy is as follows:
 
@@ -79,7 +73,7 @@ Be sure to replace `[region]` with the AWS Region for your security groups, and 
 
 For more information on ip-ranges.json, read the documentation on [AWS IP Address Ranges](http://docs.aws.amazon.com/general/latest/gr/aws-ip-ranges.html).
 
-## Create your Lambda function
+### 3. Create your Lambda function
 Now that you have created your Lambda execution role, you are ready to create your Lambda function:
 
 1. Go to the Lambda console and choose Create function. On the next page, choose Author from scratch. (Because I’ll be providing the code for your Lambda function, you can skip the blueprint step, but for other functions, blueprints can be a great way to get started.)
@@ -92,7 +86,7 @@ Now that you have created your Lambda execution role, you are ready to create yo
 
 [LAMBDA CODE ](https://github.com/aws-samples/aws-cloudfront-samples/blob/master/update_security_groups_lambda/update_security_groups.py "Lambda code")
 
-## Test Lambda Function
+### 4. Test Lambda Function
 Now that you have created your function, it’s time to test it and initialize your security group:
 
 1.  In the Lambda console on the Functions page, choose your function, choose the Actions drop-down menu, and then Configure test event.
@@ -141,7 +135,13 @@ You will see a message indicating there was a hash mismatch. Normally, a real SN
 
 This time, you should see output indicating your security group was properly updated. If you go back to the EC2 console and view the security group you created, you will now see all the CloudFront IP ranges added as allowed points of ingress. If your log output is different, it should help you identify the issue.
 
-## Configure your Lambda function’s trigger
+### 5. Configure your Lambda function’s trigger
+
+This lambda function is designed to be subscribed to the 
+[AmazonIpSpaceChanged](http://docs.aws.amazon.com/general/latest/gr/aws-ip-ranges.html#subscribe-notifications) 
+SNS topic. In the _Add Event Source_ dialog, select **SNS** in the *Event source type*, and populate *SNS Topic* with `arn:aws:sns:us-east-1:806199016981:AmazonIpSpaceChanged`.
+
+### 5.1. Configure your Lambda function’s trigger
 After you have validated that your function is executing properly, it’s time to connect it to the SNS topic for IP changes. To do this, use the AWS Command Line Interface (CLI). Enter the following command, making sure to replace <Lambda ARN> with the Amazon Resource Name (ARN) of your Lambda function. You will find this ARN at the top right when viewing the configuration of your Lambda function.
 
 `aws sns subscribe --topic-arn arn:aws:sns:us-east-1:806199016981:AmazonIpSpaceChanged --protocol lambda --notification-endpoint <Lambda ARN>`

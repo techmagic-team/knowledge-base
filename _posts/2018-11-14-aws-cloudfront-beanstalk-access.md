@@ -86,9 +86,10 @@ Now that you have created your Lambda execution role, you are ready to create yo
 2. On the Configure triggers page, choose Next.
 3. Give your Lambda function a name and description, and select Python 2.7 from the Runtime menu.
 4. Paste the Lambda function code from the aws-cloudfront-samples GitHub repository. Important note: By default, Lambda configures the SDK in its own region. If the security groups are in a different region than the Lambda function, you must update the SDK client with the correct region (client = boto3.client(‘ec2’,region_name=‘yourregion’)).
+
 <details>
     <summary>Lambda code</summary>
-```
+
 import boto3
 import hashlib
 import json
@@ -263,7 +264,6 @@ def get_security_groups_for_update(client, security_group_tag):
 
     return response['SecurityGroups']
 
-```
 
 </details>
 

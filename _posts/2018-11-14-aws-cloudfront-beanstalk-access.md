@@ -147,24 +147,15 @@ After you have validated that your function is executing properly, it’s time t
 `aws sns subscribe --topic-arn arn:aws:sns:us-east-1:806199016981:AmazonIpSpaceChanged --protocol lambda --notification-endpoint <Lambda ARN>`
 
 You should receive an ARN of your Lambda function’s SNS subscription. Your Lambda function will now be invoked whenever AWS publishes new IP ranges!
-***
 
-Copyright 2018 Amazon.com, Inc. or its affiliates. All Rights Reserved.
-
-Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with the License. A copy of the License is located at
-
-    http://aws.amazon.com/apache2.0/
-
-or in the "license" file accompanying this file. This file is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License.
-
-```
-aws sns subscribe --topic-arn arn:aws:sns:us-east-1:806199016981:AmazonIpSpaceChanged --protocol lambda --notification-endpoint <Lambda ARN>
-```
 ## NOTE: Take a look at the groups you created and they're now populated with a whole bunch of entries for CloudFront IP's.
 
-AWS Console -> Elastic Beanstalk -> Application -> Environment -> Configuration -> Instance - Update the groups to include the group-id of the group you created.
-The Lambda Function will keep your IP list in sync.
-
+1. AWS Console -> Elastic Beanstalk -> Application -> Environment -> Configuration -> Instance - Update the groups to include the group-id of the group you created.
+2. AWS Console -> EC2 -> Load Balancers -> Select load balancer -> Actions -> Edit Security Group -> Attach new grops
+3. AWS Console -> EC2 -> Security grops -> Select AWSEBLoadBalancerSecurityGroup (default loadbalancer SG)-> Change INBOUND RULES:
+    * Protocol HTTP, Port 80 Source (paste here group-id "clodfront_g")
+    * Protocol HTTP, Port 80 Source (paste here group-id "clodfront_r")
+Delete any other inbound rules
 
 
 [Full article](https://aws.amazon.com/blogs/security/how-to-automatically-update-your-security-groups-for-amazon-cloudfront-and-aws-waf-by-using-aws-lambda/)

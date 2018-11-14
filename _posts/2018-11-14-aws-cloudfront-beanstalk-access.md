@@ -20,7 +20,7 @@ With implementation of GDPR this problem became more critical due to big financi
 
 ## Setup
 
-## update-security-groups
+### update-security-groups
 
 A Lambda function for updating the **cloudfront** EC2 security group ingress rules
 with the CloudFront IP range changes.
@@ -151,15 +151,15 @@ You should receive an ARN of your Lambda function’s SNS subscription. Your Lam
 ## LAST STEPS TO ATTACH YOUR GROUPS 
 
 1. AWS Console -> Elastic Beanstalk -> Application -> Environment -> Configuration -> Instance - Update the groups to include the group-id of the group you created.
-2. AWS Console -> EC2 -> Load Balancers -> Select load balancer -> Actions -> Edit Security Group -> Attach new grops
-3. AWS Console -> EC2 -> Security grops -> Select AWSEBLoadBalancerSecurityGroup (default loadbalancer SG)-> Change INBOUND RULES:
+2. AWS Console -> EC2 -> Load Balancers -> Select load balancer -> Actions -> Edit Security Group -> Attach new groups
+3. AWS Console -> EC2 -> Security groups -> Select AWSEBLoadBalancerSecurityGroup (default loadbalancer SG)-> Change INBOUND RULES:
     * Protocol HTTP, Port 80 Source (paste here group-id "clodfront_g")
     * Protocol HTTP, Port 80 Source (paste here group-id "clodfront_r")
 
 Delete any other inbound rules
 
 
-[Full article](https://aws.amazon.com/blogs/security/how-to-automatically-update-your-security-groups-for-amazon-cloudfront-and-aws-waf-by-using-aws-lambda/)
+# [Full article](https://aws.amazon.com/blogs/security/how-to-automatically-update-your-security-groups-for-amazon-cloudfront-and-aws-waf-by-using-aws-lambda/)
 
 
 ## What's next?

@@ -88,13 +88,7 @@ Now that you have created your Lambda execution role, you are ready to create yo
 4. Paste the Lambda function code from the aws-cloudfront-samples GitHub repository. Important note: By default, Lambda configures the SDK in its own region. If the security groups are in a different region than the Lambda function, you must update the SDK client with the correct region (client = boto3.client(‘ec2’,region_name=‘yourregion’)).
 <details>
     <summary>Lambda code</summary>
-'''
-Copyright 2018 Amazon.com, Inc. or its affiliates. All Rights Reserved.
-Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with the License. A copy of the License is located at
-    http://aws.amazon.com/apache2.0/
-or in the "license" file accompanying this file. This file is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License.
-'''
-
+```
 import boto3
 import hashlib
 import json
@@ -269,31 +263,10 @@ def get_security_groups_for_update(client, security_group_tag):
 
     return response['SecurityGroups']
 
-'''
-Sample Event From SNS:
-{
-  "Records": [
-    {
-      "EventVersion": "1.0",
-      "EventSubscriptionArn": "arn:aws:sns:EXAMPLE",
-      "EventSource": "aws:sns",
-      "Sns": {
-        "SignatureVersion": "1",
-        "Timestamp": "1970-01-01T00:00:00.000Z",
-        "Signature": "EXAMPLE",
-        "SigningCertUrl": "EXAMPLE",
-        "MessageId": "95df01b4-ee98-5cb9-9903-4c221d41eb5e",
-        "Message": "{\"create-time\": \"yyyy-mm-ddThh:mm:ss+00:00\", \"synctoken\": \"0123456789\", \"md5\": \"45be1ba64fe83acb7ef247bccbc45704\", \"url\": \"https://ip-ranges.amazonaws.com/ip-ranges.json\"}",
-        "Type": "Notification",
-        "UnsubscribeUrl": "EXAMPLE",
-        "TopicArn": "arn:aws:sns:EXAMPLE",
-        "Subject": "TestInvoke"
-      }
-    }
-  ]
-}
-'''
+```
+
 </details>
+
 5. Below the code window for Lambda function handler and role, select the execution role you created earlier.
 6. Under Advanced settings, increase the Timeout to 5 seconds.  If you are updating several security groups with this function, you might have to increase the timeout by even more time. Finally, click Next.
 7. After confirming your settings are correct, click Create function.

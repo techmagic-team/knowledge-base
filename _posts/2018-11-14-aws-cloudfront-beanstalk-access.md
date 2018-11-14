@@ -18,7 +18,7 @@ With implementation of GDPR this problem became more critical due to big financi
 
 ## How to Automatically Update Your Security Groups for Amazon CloudFront and AWS WAF by Using AWS Lambda
 
-# Setup
+## Setup
 
 ## update-security-groups
 
@@ -148,13 +148,14 @@ After you have validated that your function is executing properly, it’s time t
 
 You should receive an ARN of your Lambda function’s SNS subscription. Your Lambda function will now be invoked whenever AWS publishes new IP ranges!
 
-## NOTE: Take a look at the groups you created and they're now populated with a whole bunch of entries for CloudFront IP's.
+## LAST STEPS TO ATTACH YOUR GROUPS 
 
 1. AWS Console -> Elastic Beanstalk -> Application -> Environment -> Configuration -> Instance - Update the groups to include the group-id of the group you created.
 2. AWS Console -> EC2 -> Load Balancers -> Select load balancer -> Actions -> Edit Security Group -> Attach new grops
 3. AWS Console -> EC2 -> Security grops -> Select AWSEBLoadBalancerSecurityGroup (default loadbalancer SG)-> Change INBOUND RULES:
     * Protocol HTTP, Port 80 Source (paste here group-id "clodfront_g")
     * Protocol HTTP, Port 80 Source (paste here group-id "clodfront_r")
+
 Delete any other inbound rules
 
 

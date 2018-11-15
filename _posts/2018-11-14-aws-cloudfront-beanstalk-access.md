@@ -135,18 +135,26 @@ You will see a message indicating there was a hash mismatch. Normally, a real SN
 
 This time, you should see output indicating your security group was properly updated. If you go back to the EC2 console and view the security group you created, you will now see all the CloudFront IP ranges added as allowed points of ingress. If your log output is different, it should help you identify the issue.
 
-### 5. Configure your Lambda function’s trigger
+### 5. Configure your Lambda function’s trigger in AWS Console
 
 This lambda function is designed to be subscribed to the 
 [AmazonIpSpaceChanged](http://docs.aws.amazon.com/general/latest/gr/aws-ip-ranges.html#subscribe-notifications) 
 SNS topic. In the _Add Event Source_ dialog, select **SNS** in the *Event source type*, and populate *SNS Topic* with `arn:aws:sns:us-east-1:806199016981:AmazonIpSpaceChanged`.
 
-### 5.1. Configure your Lambda function’s trigger
+### 5.1. Configure your Lambda function’s trigger AWS-CLI 
 After you have validated that your function is executing properly, it’s time to connect it to the SNS topic for IP changes. To do this, use the AWS Command Line Interface (CLI). Enter the following command, making sure to replace <Lambda ARN> with the Amazon Resource Name (ARN) of your Lambda function. You will find this ARN at the top right when viewing the configuration of your Lambda function.
 
 `aws sns subscribe --topic-arn arn:aws:sns:us-east-1:806199016981:AmazonIpSpaceChanged --protocol lambda --notification-endpoint <Lambda ARN>`
 
 You should receive an ARN of your Lambda function’s SNS subscription. Your Lambda function will now be invoked whenever AWS publishes new IP ranges!
+
+### 5.2 Add permision to Lambda (Must be installed AWS SAM CLI). Optional
+
+Now add a permission that allows the Lambda function to be invoked by the SNS topic. The following command adds the Lambda trigger, as well:
+
+```
+aws lambda add-permission --function-name <Lambda ARN> --statement-id lambda-sns-trigger --action lambda:InvokeFunction --principal sns.amazonaws.com --source-arn arn:aws:sns:us-east-1:806199016981:AmazonIpSpaceChanged
+```
 
 ## LAST STEPS TO ATTACH YOUR GROUPS 
 
